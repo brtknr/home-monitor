@@ -3,7 +3,8 @@ import requests
 import json
 import time
 import datetime
-from secret import credentials
+
+from secret import credentials # template credentals provided in secret.py.sample
 
 measurement = 'bme280'
 endpoint  = 'http://192.168.8.110/bme280'

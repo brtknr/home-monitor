@@ -1,5 +1,5 @@
-dofile("credentials.lua")
 dofile("bme280.lua")
+dofile("credentials.lua") -- template credentials provided as credentials.lua.sample
 
 local outpin = 4
 local state = false
