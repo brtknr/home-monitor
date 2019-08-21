@@ -1,5 +1,5 @@
 sda, scl = 6, 7
-alt=15 -- altitude of Bedminister, Bristol in meters
+alt = 15 -- altitude of Bedminister, Bristol in meters
 
 i2c.setup(0, sda, scl, i2c.SLOW) -- call i2c.setup() only once
 bme280.setup()
