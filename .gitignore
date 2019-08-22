@@ -1,2 +1,8 @@
 credentials.lua
 secret.py
+__pycache__
+include
+share
+lib64
+lib
+bin

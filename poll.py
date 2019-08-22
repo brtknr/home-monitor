@@ -3,6 +3,7 @@ import requests
 import json
 import time
 import datetime
+import sys
 
 from secret import credentials # template credentals provided in secret.py.sample
 
@@ -21,4 +22,5 @@ while True:
         client.write_points([point])
     except Exception as e:
         print('Error', e)
+    sys.stdout.flush()
     time.sleep(10)
