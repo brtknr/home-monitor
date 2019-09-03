@@ -12,10 +12,12 @@ function readBME280()
   -- QNH air pressure in hectopascals multiplied by 1000 converted to sea level
   D = bme280.dewpoint(H, T)
   -- For given temperature and relative humidity returns the dew point in celsius as an integer multiplied with 100.
-  return string.format('{"T": %0.2f, "P": %0.3f, "QNH": %0.3f, "H": %0.3f, "D": %0.3f}', T/100, P/1000, QNH/1000, H/1000, D/100)
+  response = string.format('{"T": %0.2f, "P": %0.3f, "QNH": %0.3f, "H": %0.3f, "D": %0.3f}', T/100, P/1000, QNH/1000, H/1000, D/100)
+  print(response)
+  return response
 end
 
-print(readBME280()) -- test print the output on startup
+readBME280() -- test print the output on startup
 
 -- altimeter function - calculate altitude based on current sea level pressure (QNH) and measure pressure
 -- P = bme280.baro()
