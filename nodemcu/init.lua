@@ -7,6 +7,7 @@ timer_connect = tmr.create()
 timer_inactive = tmr.create()
 
 function init()
+  connect ()
   gpio.mode(outpin, gpio.OUTPUT)
   timer_inactive:alarm(20000, tmr.ALARM_AUTO, function()
     if retries < 3 then
@@ -28,15 +29,6 @@ function togLED()
   gpio.write(outpin, gpio.HIGH)
 end
 
-function startup()
-  if file.open("init.lua") == nil then
-    print("init.lua deleted or renamed")
-  else
-    file.close("init.lua")
-    gpio.write(outpin, gpio.LOW)
-  end
-end
-
 function connect()
   print("Connecting to WiFi using provided credentials (" .. creds.ssid .. ", " .. creds.pwd .. ")")
   wifi.setmode(wifi.STATION)
@@ -49,7 +41,7 @@ function connect()
     else
       print("WiFi connection established, IP address: " .. wifi.sta.getip())
       timer_connect:unregister()
-      startup()
+      gpio.write(outpin, gpio.LOW)
     end
   end)
 end
