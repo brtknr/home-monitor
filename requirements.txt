@@ -1,1 +1,3 @@
 influxdb
+esptool
+nodemcu-uploader
