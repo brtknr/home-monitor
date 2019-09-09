@@ -9,17 +9,17 @@ from secret import credentials # template credentals provided in secret.py.sampl
 
 measurement = 'bme280'
 endpoint  = 'http://192.168.8.%i/bme280'
-rooms = [100, 110]
+rooms = [100, 110, 120]
 
 client = influxdb.InfluxDBClient(**credentials)
 client.create_database(credentials.get('database'))
 
 points = list()
 while True:
+    cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
     for room in rooms:
         try:
-            fields = json.loads(requests.get(endpoint%room, timeout=1).content)
-            cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
+            fields = json.loads(requests.get(endpoint%room, timeout=3).content)
             point = dict(measurement=measurement, time=cur_time, fields=fields, tags=dict(room=room))
             print(point)
             points.append(point)
