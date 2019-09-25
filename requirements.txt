@@ -1,3 +1,5 @@
 influxdb
+wheel
+aiohttp
 esptool
 nodemcu-uploader
