@@ -7,12 +7,9 @@ import sys
 import aiohttp
 import asyncio
 
-from secret import credentials # template credentals provided in secret.py.sample
+from config import credentials, measurement, endpoint, rooms
 client = influxdb.InfluxDBClient(**credentials)
 client.create_database(credentials.get('database'))
-measurement = 'bme280'
-endpoint  = 'http://192.168.8.%i/bme280'
-rooms = [100, 110, 120]
 
 async def fetch(session, url):
     try:

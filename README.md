@@ -5,10 +5,10 @@ Install InfluxDB:
 	sudo systemctl start influxdb
 	sudo systemctl status influxdb
 
-Create `influxdb` user and fill in `secret.py` with admin username and password:
+Create `influxdb` user and fill in `config.py` with admin username and password:
 
 	influx -execute "CREATE USER <username> WITH PASSWORD '<password>' WITH ALL PRIVILEGES"
-	cp secret.py{.sample,}
+	cp config.py{.sample,}
 
 At this point, you want want to set `auth-enabled = true` inside
 `/etc/influxdb/influxdb.conf` if you want to expose your database to the web.
