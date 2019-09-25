@@ -9,8 +9,8 @@ timer_inactive = tmr.create()
 function init()
   connect ()
   gpio.mode(outpin, gpio.OUTPUT)
-  timer_inactive:alarm(20000, tmr.ALARM_AUTO, function()
-    if retries < 3 then
+  timer_inactive:alarm(30000, tmr.ALARM_AUTO, function()
+    if retries < 10 then
       if retries > 0 then
         print("No activity for " .. retries .. " retries, will attempt to reconnect to Wifi")
         connect ()
@@ -33,6 +33,7 @@ function connect()
   print("Connecting to WiFi using provided credentials (" .. creds.ssid .. ", " .. creds.pwd .. ")")
   wifi.setmode(wifi.STATION)
   -- creds struct must have ssid and pwd properties
+  wifi.sta.disconnect()
   wifi.sta.config(creds)
   -- wifi.sta.connect() not necessary because config() uses auto-connect=true by default
   timer_connect:alarm(1000, tmr.ALARM_AUTO, function()

@@ -19,7 +19,7 @@ while True:
     cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
     for room in rooms:
         try:
-            fields = json.loads(requests.get(endpoint%room, timeout=3).content)
+            fields = json.loads(requests.get(endpoint%room, timeout=5).content)
             point = dict(measurement=measurement, time=cur_time, fields=fields, tags=dict(room=room))
             print(point)
             points.append(point)
