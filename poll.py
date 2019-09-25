@@ -4,14 +4,15 @@ import json
 import time
 import datetime
 import sys
-from secret import credentials # template credentals provided in secret.py.sample
-
-
-client = influxdb.InfluxDBClient(**credentials)
-client.create_database(credentials.get('database'))
-
 import aiohttp
 import asyncio
+
+from secret import credentials # template credentals provided in secret.py.sample
+client = influxdb.InfluxDBClient(**credentials)
+client.create_database(credentials.get('database'))
+measurement = 'bme280'
+endpoint  = 'http://192.168.8.%i/bme280'
+rooms = [100, 110, 120]
 
 async def fetch(session, url):
     try:
@@ -22,20 +23,17 @@ async def fetch(session, url):
         return False
 
 async def main():
-    measurement = 'bme280'
-    endpoint  = 'http://192.168.8.%i/bme280'
-    rooms = [100, 110, 120]
     cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
     tasks = []
     async with aiohttp.ClientSession() as session:
         for room in rooms:
             url = endpoint % room
             tasks.append(fetch(session, url))
-        htmls = await asyncio.gather(*tasks)
+        responses = await asyncio.gather(*tasks)
         points = []
-        for html in htmls:
-            if html:
-                fields = json.loads(html)
+        for room, response in zip(rooms, responses):
+            if response:
+                fields = json.loads(response)
                 point = dict(measurement=measurement, time=cur_time, fields=fields, tags=dict(room=room))
                 print(point)
                 points.append(point)
