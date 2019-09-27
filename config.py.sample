@@ -1,4 +1,8 @@
 credentials = dict(host='localhost', username='admin', password='password', database='home')
+
 measurement = 'bme280'
 endpoint  = 'http://192.168.8.%i/bme280'
 rooms = [100, 110, 120]
+
+interval = 10 # seconds between polling
+timeout = 3 # seconds before timing out
