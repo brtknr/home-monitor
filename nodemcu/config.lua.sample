@@ -2,3 +2,4 @@ creds = {
   ssid = "SSID",
   pwd = "password",
 }
+timeout_reconnect = 15000 --milliseconds

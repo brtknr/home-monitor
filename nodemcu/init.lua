@@ -1,31 +1,26 @@
 dofile("bme280.lua")
-dofile("credentials.lua") -- template credentials provided as credentials.lua.sample
+dofile("config.lua") -- template credentials provided as credentials.lua.sample
 
 outpin = 4
 retries = 0
 timer_connect = tmr.create()
-timer_inactive = tmr.create()
+timer_reconnect = tmr.create()
 
 function init()
-  connect ()
   gpio.mode(outpin, gpio.OUTPUT)
-  timer_inactive:alarm(30000, tmr.ALARM_AUTO, function()
-    if retries < 10 then
-      if retries > 0 then
-        print("No activity for " .. retries .. " retries, will attempt to reconnect to Wifi")
-        connect ()
-      end
-      retries = retries + 1
-    else
-      print("Restarting after " .. retries .. " retries in case the device is being funny")
-      node.restart() --maxed out retries, restart
+  connect ()
+  timer_reconnect:alarm(timeout_reconnect, tmr.ALARM_AUTO, function()
+    if retries > 0 then
+      print("No activity for " .. retries .. " retries, reconnect to Wifi")
+      connect ()
     end
+    retries = retries + 1
   end)
 end
 
-function togLED()
+function togLED(delay)
   gpio.write(outpin, gpio.LOW)
-  tmr.delay(500)
+  tmr.delay(delay)
   gpio.write(outpin, gpio.HIGH)
 end
 
@@ -37,12 +32,15 @@ function connect()
   wifi.sta.config(creds)
   -- wifi.sta.connect() not necessary because config() uses auto-connect=true by default
   timer_connect:alarm(1000, tmr.ALARM_AUTO, function()
-    if wifi.sta.getip() == nil then
-      togLED()
-    else
+    if wifi.sta.status() == wifi.STA_GOTIP then
       print("WiFi connection established, IP address: " .. wifi.sta.getip())
       timer_connect:unregister()
       gpio.write(outpin, gpio.LOW)
+    elseif wifi.sta.status() == wifi.STA_CONNECTING then
+      togLED(500)
+    else
+      print("Error, WiFi status is: " .. wifi.sta.status())
+      togLED(1000)
     end
   end)
 end
@@ -58,7 +56,7 @@ srv:listen(80, function(conn)
       conn:send(readBME280())
       conn:on("sent", function(conn) conn:close() end)
       retries = 0
-      togLED()
+      togLED(500)
     end
   end)
 end)
