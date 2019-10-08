@@ -4,33 +4,31 @@ timer_connect = tmr.create()
 timer_reconnect = tmr.create()
 
 function main()
-  if file.open("bme280.lc") then
-    file.close()
-    dofile("bme280.lc")
-  else
-    dofile("bme280.lua")
-  end
-  
-  if file.open("config.lc") then
-    file.close()
-    dofile("config.lc")
-  else
-    dofile("config.lua")
-  end
-
+  dofile("bme280.lua")
+  dofile("config.lua")
   srv=net.createServer(net.TCP)
   srv:listen(80, function(conn)
     conn:on("receive", function(conn,payload)
-      -- print(payload)  -- view the received data
+      print(payload)  -- view the received data
       fnd = {string.find(payload, "/bme280 ")}
-      if #fnd ~= 0 then
-        conn:send('HTTP/1.0 200 OK\r\n')
-        conn:send('Content-Type: application/json\r\n\r\n')
-        conn:send(readBME280())
-        conn:on("sent", function(conn) conn:close() end)
-        retries = 0
-        togLED(500)
+      fnd0 = {string.find(payload, "GET /")}
+      fnd1 = {string.find(payload, " HTTP/1.1")}
+      link = string.sub(payload, fnd0[2]+1, fnd1[1]-1)
+
+      result = "{}"
+      if link == 'bme280' or link == 'measurements' then
+	T, P, QNH, H, D = readBME280()
+	-- wifi received signal strength indicator
+	RSSI = wifi.sta.getrssi()
+        -- For given temperature and relative humidity returns the dew point in celsius as an integer multiplied with 100.
+        result = string.format('{"T": %0.2f, "P": %0.3f, "QNH": %0.3f, "H": %0.3f, "D": %0.3f, "RSSI": %i}', T, P, QNH, H, D, RSSI)
       end
+      conn:send('HTTP/1.0 200 OK\r\n')
+      conn:send('Content-Type: application/json\r\n\r\n')
+      conn:send(result)
+      conn:on("sent", function(conn) conn:close() end)
+      retries = 0
+      togLED(500)
     end)
   end)
 
