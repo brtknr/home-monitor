@@ -8,10 +8,10 @@ function readBME280()
   T, P, H, QNH = bme280.read(alt)
   -- T temperature in celsius as an integer multiplied with 100
   -- P air pressure in hectopascals multiplied by 1000
-  -- H relative humidity in percent multiplied by 1000
   -- QNH air pressure in hectopascals multiplied by 1000 converted to sea level
+  -- H relative humidity in percent multiplied by 1000
   D = bme280.dewpoint(H, T)
-  return T/100, P/100, QNH/1000, H/1000, D/100
+  return T/100, P/1000, QNH/1000, H/1000, D/100
 end
 
 T, P, QNH, H, D = readBME280() -- test print the output on startup
