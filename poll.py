@@ -24,10 +24,10 @@ async def fetch(session, url):
 
 
 async def main():
-    cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
-    tasks = []
     start = time.time()
+    cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
     async with aiohttp.ClientSession() as session:
+        tasks = []
         for room in rooms:
             url = endpoint % room
             tasks.append(fetch(session, url))
@@ -49,10 +49,13 @@ async def main():
     elapsed = time.time() - start
     print('Wrote %i point(s), elapsed %0.1f seconds' % (len(points), elapsed))
     sys.stdout.flush()
-    time.sleep(max(0, interval - elapsed))
 
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     while True:
+        modulus = time.time() % interval
+        difference = interval - modulus
+        if modulus > 0.1 and difference > 0.1:
+            time.sleep(difference)
         loop.run_until_complete(main())
