@@ -1,6 +1,8 @@
+config.sh
 config.lua
 config.py
 __pycache__
+octopus
 include
 share
 lib64
