@@ -4,6 +4,7 @@ config.py
 __pycache__
 octopus
 include
+*.log
 share
 lib64
 lib
