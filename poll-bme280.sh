@@ -1,4 +1,3 @@
 #!/bin/bash
-cd /opt/poll-bme280
-source ./bin/activate
-python poll-bme280.py
+source /opt/poll-bme280/bin/activate
+python /opt/poll-bme280/poll-bme280.py
