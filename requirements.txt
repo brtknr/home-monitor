@@ -4,3 +4,4 @@ aiohttp
 esptool
 nodemcu-uploader
 flask
+ping3
