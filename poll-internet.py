@@ -32,18 +32,15 @@ async def main():
     loop = asyncio.get_event_loop()
     for server in ping_servers:
         tasks.append(loop.run_in_executor(None, ping, server))
-    responses = await asyncio.gather(*tasks)
+    delays = await asyncio.gather(*tasks)
     points = []
-    for server, response in zip(ping_servers, responses):
-        if response != None:
-            point = dict(measurement=measurement,
-                         time=cur_time,
-                         fields={server: response}
-                         )
+    for server, delay in zip(ping_servers, delays):
+        if delay != None:
+            point = dict(measurement=measurement, time=cur_time, fields=dict(delay=delay), tags=dict(server=server))
             print(server, point)
             points.append(point)
         else:
-            print(server, response)
+            print(server, delay)
     if points:
         try:
             client.write_points(points)
