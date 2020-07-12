@@ -12,7 +12,7 @@ from config import measurement, endpoint, rooms
 from config import interval, timeout
 
 client = influxdb.InfluxDBClient(**credentials)
-client.create_database(credentials.get('database'))
+client.create_database(credentials.get("database"))
 
 
 async def fetch(session, url):
@@ -25,7 +25,7 @@ async def fetch(session, url):
 
 async def main():
     start = time.time()
-    cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
+    cur_time = datetime.datetime.utcnow().isoformat().split(".")[0]
     async with aiohttp.ClientSession() as session:
         tasks = []
         for room in rooms:
@@ -36,7 +36,12 @@ async def main():
         for room, response in zip(rooms, responses):
             if type(response) == str:
                 fields = json.loads(response)
-                point = dict(measurement=measurement, time=cur_time, fields=fields, tags=dict(room=room))
+                point = dict(
+                    measurement=measurement,
+                    time=cur_time,
+                    fields=fields,
+                    tags=dict(room=room),
+                )
                 print(room, point)
                 points.append(point)
             else:
@@ -47,11 +52,11 @@ async def main():
         except Exception as e:
             print(e)
     elapsed = time.time() - start
-    print('Wrote %i point(s), elapsed %0.1f seconds' % (len(points), elapsed))
+    print("Wrote %i point(s), elapsed %0.1f seconds" % (len(points), elapsed))
     sys.stdout.flush()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     while True:
         modulus = time.time() % interval

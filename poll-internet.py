@@ -7,27 +7,29 @@ import time
 import sys
 
 client = influxdb.InfluxDBClient(**credentials)
-client.create_database(credentials.get('database'))
+client.create_database(credentials.get("database"))
 
-measurement = 'internet'
+measurement = "internet"
 
-#points = list()
-#cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
-#for server in ping_servers:
+# points = list()
+# cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
+# for server in ping_servers:
 #    delay = ping(server)
 #    points.append(point)
-#if points:
+# if points:
 #    client.write_points(points)
 #    print(points)
-#print('Wrote {n} points.'.format(n=len(points)))
+# print('Wrote {n} points.'.format(n=len(points)))
+
 
 async def async_ping(server):
     delay = await ping(server)
     return delay
 
+
 async def main():
     start = time.time()
-    cur_time = datetime.datetime.utcnow().isoformat().split('.')[0]
+    cur_time = datetime.datetime.utcnow().isoformat().split(".")[0]
     tasks = []
     loop = asyncio.get_event_loop()
     for server in ping_servers:
@@ -36,7 +38,12 @@ async def main():
     points = []
     for server, delay in zip(ping_servers, delays):
         if delay != None:
-            point = dict(measurement=measurement, time=cur_time, fields=dict(delay=delay), tags=dict(server=server))
+            point = dict(
+                measurement=measurement,
+                time=cur_time,
+                fields=dict(delay=delay),
+                tags=dict(server=server),
+            )
             print(server, point)
             points.append(point)
         else:
@@ -47,10 +54,11 @@ async def main():
         except Exception as e:
             print(e)
     elapsed = time.time() - start
-    print('Wrote %i point(s), elapsed %0.1f seconds' % (len(points), elapsed))
+    print("Wrote %i point(s), elapsed %0.1f seconds" % (len(points), elapsed))
     sys.stdout.flush()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     while True:
         modulus = time.time() % interval
