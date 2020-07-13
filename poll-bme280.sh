@@ -1,3 +1,4 @@
 #!/bin/bash
-source /opt/poll-bme280/bin/activate
-python /opt/poll-bme280/poll-bme280.py
+DIR=`dirname $0`
+source $DIR/bin/activate
+python $DIR/poll-bme280.py

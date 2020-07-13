@@ -1,9 +1,0 @@
-[Unit]
-Description=Poll Service
-
-[Service]
-ExecStart=/opt/poll-bme280/poll-bme280.sh
-Restart=always
-
-[Install]
-WantedBy=multi-user.target

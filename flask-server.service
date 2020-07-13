@@ -1,9 +1,0 @@
-[Unit]
-Description=Flask Server
-
-[Service]
-ExecStart=/opt/poll-bme280/flask-server.sh
-Restart=always
-
-[Install]
-WantedBy=multi-user.target

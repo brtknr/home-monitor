@@ -5,3 +5,4 @@ esptool
 nodemcu-uploader
 flask
 ping3
+black

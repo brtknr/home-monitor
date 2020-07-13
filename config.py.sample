@@ -1,8 +1,17 @@
-credentials = dict(host='localhost', username='admin', password='password', database='home')
+credentials = dict(
+    host="localhost", username="admin", password="", database="14PHCMULTI"
+)
 
-measurement = 'nodemcu'
-endpoint  = 'http://192.168.8.%i/bme280'
+measurement = "nodemcu"
+endpoint = "http://192.168.8.%i/bme280"
 rooms = [100, 110, 120]
 
-interval = 10 # seconds between polling
-timeout = 3 # seconds before timing out
+interval = 10  # seconds between polling
+timeout = 5  # seconds before timing out
+
+# octopus energy
+api_key = ""
+mpan = ""
+meter_no = ""
+
+ping_servers = ["1.1.1.1", "8.8.8.8"]
