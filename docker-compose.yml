@@ -1,0 +1,60 @@
+version: '3.3'    
+services:
+  poll-bme280:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./config.py:/config.py
+    command:
+      - poll-bme280.py
+    restart: always
+  poll-octopus:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./config.py:/config.py
+    command:
+      - poll-octopus.py
+    restart: always
+  poll-internet:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./config.py:/config.py
+    command:
+      - poll-internet.py
+    restart: always
+  patch-cloudflare:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./config.py:/config.py
+    command:
+      - patch-cloudflare.py
+    restart: always
+  flask-server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./config.py:/config.py
+    environment:
+      - FLASK_APP=./flask-server.py
+    entrypoint:
+      - flask
+    command:
+      - run
+      - --host=0.0.0.0
+    ports:
+      - 5000:5000
+    restart: always
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 30000:3000
+    restart: always
+
