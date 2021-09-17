@@ -53,7 +53,6 @@ async def main():
             print(e)
     elapsed = time.time() - start
     print("Wrote %i point(s), elapsed %0.1f seconds" % (len(points), elapsed))
-    sys.stdout.flush()
 
 
 if __name__ == "__main__":
@@ -62,5 +61,7 @@ if __name__ == "__main__":
         modulus = time.time() % interval
         difference = interval - modulus
         if modulus > 0.1 and difference > 0.1:
+            print("Sleeping for", difference)
+            sys.stdout.flush()
             time.sleep(difference)
         loop.run_until_complete(main())
