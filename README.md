@@ -1,23 +1,21 @@
 Install InfluxDB:
 
-	sudo apt install influxdb
-	sudo systemctl enable influxdb
-	sudo systemctl start influxdb
-	sudo systemctl status influxdb
+    sudo apt install influxdb
+    sudo systemctl enable influxdb
+    sudo systemctl start influxdb
 
-Create `influxdb` user and fill in `config.py` with admin username and password:
+Create `influxdb` user:
 
-	influx -execute "CREATE USER <username> WITH PASSWORD '<password>' WITH ALL PRIVILEGES"
-	cp config.py{.sample,}
+    influx -execute "CREATE USER <username> WITH PASSWORD '<password>' WITH ALL PRIVILEGES"
 
-At this point, you want want to set `auth-enabled = true` inside
-`/etc/influxdb/influxdb.conf` if you want to expose your database to the web.
+Now you will want want to set `auth-enabled = true` inside `/etc/influxdb/influxdb.conf` before exposing your database to the web.
 
-Now you are ready to start your polling service:
+    sudo systemctl restart influxdb
 
-	git clone github.com/brtknr/poll-bme280
-	sudo mv poll-bme-280 /opt/poll-bme280
-	sudo python3 -m venv /opt/poll-bme280
-	sudo chown $USER:$USER /opt/poll-bme280
-	/opt/poll-bme280/setup.sh
-	sudo systemctl status poll-bme280.service
+Create `config.py` and populate with admin username and password:
+
+    cp config.py{.sample,}
+
+Now you are ready to start your containers:
+
+    docker-compose up -d --build
