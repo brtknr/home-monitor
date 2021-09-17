@@ -16,6 +16,10 @@ Create `config.py` and populate with admin username and password:
 
     cp config.py{.sample,}
 
+Init letsencrypt (https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71):
+
+    ./init-letsencrypt.sh
+
 Now you are ready to start your containers:
 
     docker-compose up -d --build
