@@ -1,10 +1,12 @@
-config.sh
 config.lua
 config.py
+
+*.log
+*.pyc
+
 __pycache__
 octopus
 include
-*.log
 share
 lib64
 lib

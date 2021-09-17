@@ -1,5 +1,8 @@
 credentials = dict(
-    host="localhost", username="admin", password="", database="14PHCMULTI"
+    host="192.168.8.130",
+    username="admin",
+    password="xxxxxxxx", # sensitive
+    database="14PHCMULTI",
 )
 
 measurement = "nodemcu"
@@ -8,10 +11,19 @@ rooms = [100, 110, 120]
 
 interval = 10  # seconds between polling
 timeout = 5  # seconds before timing out
-
-# octopus energy
-api_key = ""
-mpan = ""
-meter_no = ""
-
 ping_servers = ["1.1.1.1", "8.8.8.8"]
+
+
+class OctopusEnergy:
+    api_key = "xxxxxxxx" # sensitive
+    mpan = "2200042794417"
+    meter_no = "18P5002923"
+    interval = 60 * 60  # seconds between polling
+
+
+class CloudFlare:
+    email = "brtknr@bath.edu"
+    zone = "bab7acfb3951e5efe21ee3b7ccb83356"
+    token = "xxxxxxxx"  # sensitive
+    records = {"dash.rawn.uk"}
+    interval = 60  # seconds between polling
