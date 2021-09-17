@@ -34,7 +34,7 @@ def main():
                     name,
                     session.put(
                         "{endpoint}/{record_id}".format(
-                            endpoint=endpoint, record_id=i.get("record_id")
+                            endpoint=endpoint, record_id=i.get("id")
                         ),
                         json=payload,
                         headers=headers,
