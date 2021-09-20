@@ -1,0 +1,39 @@
+{
+  "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "Hourly heatmap",
+  "id": "marcusolsson-hourly-heatmap-panel",
+  "info": {
+    "description": "Heatmap for the hours of the day",
+    "author": {
+      "name": "Marcus Olsson",
+      "url": "https://github.com/marcusolsson"
+    },
+    "keywords": ["heatmap"],
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/marcusolsson/grafana-hourly-heatmap-panel"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/marcusolsson/grafana-hourly-heatmap-panel/blob/main/LICENSE"
+      }
+    ],
+    "screenshots": [
+      { "name": "Hourly heatmap (Dark)", "path": "img/dark.png" },
+      { "name": "Hourly heatmap (Light)", "path": "img/light.png" }
+    ],
+    "version": "1.0.0",
+    "updated": "2021-06-14"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=7.0.3",
+    "grafanaVersion": "7.0.3",
+    "plugins": []
+  }
+}
