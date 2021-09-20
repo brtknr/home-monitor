@@ -1,0 +1,11 @@
+# # config file version
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    database: 14PHCMULTI
+    user: reader
+    password: Bharat&Kyla
+    url: http://192.168.8.130:8086

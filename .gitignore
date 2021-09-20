@@ -5,11 +5,7 @@ config.sh
 *.log
 *.pyc
 
-__pycache__
 certbot
 octopus
-include
-share
-lib64
+venv
 lib
-bin

@@ -57,6 +57,9 @@ services:
     ports:
       - 30000:3000
     restart: always
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/lib:/var/lib/grafana
   nginx:
     image: nginx:1.21-alpine
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
