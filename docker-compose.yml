@@ -54,12 +54,16 @@ services:
     restart: always
   grafana:
     image: grafana/grafana
-    ports:
-      - 30000:3000
     restart: always
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/lib:/var/lib/grafana
+  influxdb:
+     image: arm64v8/influxdb:1.7
+     ports:
+       - "8086:8086"
+     volumes:
+       - ./influxdb:/var/lib/influxdb
   nginx:
     image: nginx:1.21-alpine
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
