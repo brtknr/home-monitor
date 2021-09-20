@@ -9,3 +9,4 @@ datasources:
     user: reader
     password: Bharat&Kyla
     url: http://192.168.8.130:8086
+    isDefault: true
