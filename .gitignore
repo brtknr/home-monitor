@@ -2,10 +2,13 @@ config.lua
 config.py
 config.sh
 
+grafana.db
+
 *.log
 *.pyc
 
-certbot
-octopus
-venv
-lib
+certbot/
+octopus/
+venv/
+csv/
+png/
