@@ -1,6 +1,6 @@
 config.lua
-config.py
 config.sh
+secret.py
 
 grafana.db
 

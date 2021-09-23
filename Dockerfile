@@ -8,5 +8,6 @@ RUN pip install --prefix=/install -r requirements.txt
 FROM base
 COPY --from=builder /install /usr/local
 
-COPY *.py /
+COPY ./app/ /app/
+WORKDIR /app/
 ENTRYPOINT [ "python3" ]

@@ -5,16 +5,16 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
-      - ./config.py:/config.py
+      - ./secret.py:/app/secret.py
     command:
-      - poll-bme280.py
+      - /app/poll-bme280.py
     restart: always
   poll-octopus:
     build:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
-      - ./config.py:/config.py
+      - ./secret.py:/app/secret.py
     command:
       - poll-octopus.py
     restart: always
@@ -23,7 +23,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
-      - ./config.py:/config.py
+      - ./secret.py:/app/secret.py
     command:
       - poll-internet.py
     restart: always
@@ -32,7 +32,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
-      - ./config.py:/config.py
+      - ./secret.py:/app/secret.py
     command:
       - patch-cloudflare.py
     restart: always
@@ -41,7 +41,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
-      - ./config.py:/config.py
+      - ./secret.py:/app/secret.py
     environment:
       - FLASK_APP=./flask-server.py
     entrypoint:
@@ -63,7 +63,8 @@ services:
      ports:
        - "8086:8086"
      volumes:
-       - ./influxdb:/var/lib/influxdb
+       - ../influxdb:/var/lib/influxdb
+     restart: always
   nginx:
     image: nginx:1.21-alpine
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
@@ -74,9 +75,11 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ../certbot/conf:/etc/letsencrypt
       - ../certbot/www:/var/www/certbot
+    restart: always
   certbot:
     image: certbot/certbot:arm64v8-latest
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     volumes:
       - ../certbot/conf:/etc/letsencrypt
       - ../certbot/www:/var/www/certbot
+    restart: always

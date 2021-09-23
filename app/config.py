@@ -1,8 +1,10 @@
+import secret
+
 credentials = dict(
     host="192.168.8.130",
-    username="admin",
-    password="xxxxxxxx", # sensitive
     database="14PHCMULTI",
+    username="admin",
+    password=secret.db_password,  # sensitive
 )
 
 measurement = "nodemcu"
@@ -15,15 +17,15 @@ ping_servers = ["1.1.1.1", "8.8.8.8"]
 
 
 class OctopusEnergy:
-    api_key = "xxxxxxxx" # sensitive
     mpan = "2200042794417"
     meter_no = "18P5002923"
     interval = 60 * 60  # seconds between polling
+    api_key = secret.octopus_api_key
 
 
 class CloudFlare:
     email = "brtknr@bath.edu"
     zone = "bab7acfb3951e5efe21ee3b7ccb83356"
-    token = "xxxxxxxx"  # sensitive
     records = {"dash.rawn.uk"}
     interval = 60  # seconds between polling
+    token = secret.cloudflare_token
