@@ -56,8 +56,8 @@ services:
     image: grafana/grafana
     restart: always
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/lib:/var/lib/grafana
+      - ./etc/grafana/:/etc/grafana
+      - ./var/lib/grafana:/var/lib/grafana
   influxdb:
      image: arm64v8/influxdb:1.7
      ports:
@@ -72,7 +72,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - ./etc/nginx/conf.d:/etc/nginx/conf.d
       - ../certbot/conf:/etc/letsencrypt
       - ../certbot/www:/var/www/certbot
     restart: always
