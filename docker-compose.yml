@@ -64,6 +64,7 @@ services:
        - "8086:8086"
      volumes:
        - ../influxdb:/var/lib/influxdb
+       - ./etc/influxdb:/etc/influxdb
      restart: always
   nginx:
     image: nginx:1.21-alpine

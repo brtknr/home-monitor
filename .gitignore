@@ -7,7 +7,6 @@ grafana.db
 *.log
 *.pyc
 
-influxdb/
 certbot/
 octopus/
 venv/

@@ -23,10 +23,6 @@ Change password:
 
     influx -username admin -password '<password>' -database 14PHCMULTI -execute "SET PASSWORD FOR reader = '<password>'"
 
-It is recommended to set `http.auth-enabled = true` inside `/etc/influxdb/influxdb.conf` before exposing your database to the web. Make sure that you restart influxdb:
-
-    docker-compose restart influxdb
-
 NOTE: to install the hourly heatmap plugin, execute this inside the grafana container:
 
     grafana-cli plugins install marcusolsson-hourly-heatmap-panel
