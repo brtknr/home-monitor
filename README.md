@@ -26,3 +26,13 @@ Change password:
 NOTE: to install the hourly heatmap plugin, execute this inside the grafana container:
 
     grafana-cli plugins install marcusolsson-hourly-heatmap-panel
+
+Configure size of log file in `/etc/docker/daemon.json`:
+
+    {
+      "log-driver": "json-file",
+      "log-opts": {
+        "max-size": "10m",
+        "max-file": "3"
+      }
+    }

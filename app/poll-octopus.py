@@ -26,8 +26,7 @@ def main():
         )
     )
     if result:
-        params["period_from"] = list(result).pop().pop().get("time")
-        params["period_from"] = "2020-01-01T00:00:00Z"
+        params["period_from"] = OctopusEnergy.period_from or list(result).pop().pop().get("time")
     print(params)
 
     while endpoint:
@@ -47,7 +46,6 @@ def main():
             client.write_points(points)
         print("Wrote {n} points.".format(n=len(points)))
         endpoint = response.get("next", None)
-        print(endpoint)
 
 
 if __name__ == "__main__":
