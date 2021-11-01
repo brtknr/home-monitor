@@ -1,6 +1,7 @@
 version: '3.3'    
 services:
-  poll-bme280:
+  bme280:
+    container_name: bme280
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -11,7 +12,8 @@ services:
     restart: always
     depends_on:
       - influxdb
-  poll-octopus:
+  octopus:
+    container_name: octopus
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -23,6 +25,7 @@ services:
     depends_on:
       - influxdb
   poll-internet:
+    container_name: internet
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -34,6 +37,7 @@ services:
     depends_on:
       - influxdb
   patch-cloudflare:
+    container_name: cloudflare
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -45,6 +49,7 @@ services:
     depends_on:
       - influxdb
   flask-server:
+    container_name: flask
     build:
       context: ./
       dockerfile: ./Dockerfile
@@ -63,6 +68,7 @@ services:
     depends_on:
       - influxdb
   grafana:
+    container_name: grafana
     image: grafana/grafana:8.1.5
     restart: always
     volumes:
@@ -71,14 +77,16 @@ services:
     depends_on:
       - influxdb
   influxdb:
-     image: arm64v8/influxdb:1.7
-     ports:
-       - "8086:8086"
-     volumes:
-       - ../influxdb:/var/lib/influxdb
-       - ./etc/influxdb:/etc/influxdb
-     restart: always
+    container_name: influxdb
+    image: arm64v8/influxdb:1.7
+    ports:
+      - "8086:8086"
+    volumes:
+      - ../influxdb:/var/lib/influxdb
+      - ./etc/influxdb:/etc/influxdb
+    restart: always
   nginx:
+    container_name: nginx
     image: nginx:1.21-alpine
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     ports:
@@ -90,6 +98,7 @@ services:
       - ../certbot/www:/var/www/certbot
     restart: always
   certbot:
+    container_name: certbot
     image: certbot/certbot:arm64v8-v1.19.0
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
     volumes:
