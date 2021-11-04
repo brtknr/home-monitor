@@ -9,7 +9,7 @@ credentials = dict(
 
 measurement = "nodemcu"
 endpoint = "http://192.168.8.%i/bme280"
-rooms = [100, 110, 120]
+rooms = [100, 120]
 
 interval = 10  # seconds between polling
 timeout = 5  # seconds before timing out
