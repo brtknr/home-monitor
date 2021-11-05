@@ -21,7 +21,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1632133488128,
+  "iteration": 1636097413969,
   "links": [],
   "panels": [
     {
@@ -88,7 +88,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.2",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
           "alias": "Room $tag_room",
@@ -153,12 +153,12 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "green",
+                "value": 1
               }
             ]
           }
@@ -188,7 +188,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.2",
+      "pluginVersion": "8.1.5",
       "targets": [
         {
           "alias": "Room $tag_room",
@@ -2067,7 +2067,7 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-14d",
     "to": "now"
   },
   "timepicker": {
@@ -2086,5 +2086,5 @@
   "timezone": "",
   "title": "14PHC",
   "uid": "hv-A1sOWz",
-  "version": 6
+  "version": 1
 }
