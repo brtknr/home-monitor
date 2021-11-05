@@ -21,7 +21,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1636100266471,
+  "iteration": 1636100303672,
   "links": [],
   "panels": [
     {
@@ -39,7 +39,7 @@
       "type": "row"
     },
     {
-      "datasource": null,
+      "datasource": "-- Dashboard --",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -80,7 +80,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -91,53 +91,19 @@
       "pluginVersion": "8.1.5",
       "targets": [
         {
-          "alias": "Room $tag_room",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "room"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "internet",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "delay"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
+          "panelId": 25,
+          "refId": "A"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Internet Latency",
+      "title": "Internet Latency ($interval)",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        }
+      ],
       "type": "stat"
     },
     {
@@ -172,7 +138,7 @@
         "y": 1
       },
       "id": 17,
-      "interval": null,
+      "interval": "$interval",
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -237,7 +203,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Number of Data Points",
+      "title": "Number of Data Points ($interval)",
       "type": "stat"
     },
     {
@@ -276,7 +242,7 @@
         "y": 10
       },
       "id": 37,
-      "interval": null,
+      "interval": "$interval",
       "options": {
         "orientation": "auto",
         "reduceOptions": {
@@ -299,7 +265,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Temperature",
+      "title": "Temperature ($interval)",
       "type": "gauge"
     },
     {
@@ -361,7 +327,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Humidity",
+      "title": "Humidity ($interval)",
       "type": "gauge"
     },
     {
@@ -776,7 +742,7 @@
       },
       "hiddenSeries": false,
       "id": 30,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -909,7 +875,7 @@
       },
       "hiddenSeries": false,
       "id": 35,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1043,7 +1009,7 @@
       },
       "hiddenSeries": false,
       "id": 7,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1177,7 +1143,7 @@
       },
       "hiddenSeries": false,
       "id": 29,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1311,7 +1277,7 @@
       },
       "hiddenSeries": false,
       "id": 22,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1447,7 +1413,7 @@
       },
       "hiddenSeries": false,
       "id": 25,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1584,7 +1550,7 @@
       },
       "hiddenSeries": false,
       "id": 13,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1697,7 +1663,7 @@
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
@@ -1719,7 +1685,7 @@
       },
       "hiddenSeries": false,
       "id": 33,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1850,7 +1816,7 @@
       },
       "hiddenSeries": false,
       "id": 2,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -1992,7 +1958,7 @@
       },
       "hiddenSeries": false,
       "id": 3,
-      "interval": null,
+      "interval": "$interval",
       "legend": {
         "avg": false,
         "current": false,
@@ -2121,9 +2087,9 @@
         "auto_count": 30,
         "auto_min": "10s",
         "current": {
-          "selected": false,
-          "text": "auto",
-          "value": "$__auto_interval_interval"
+          "selected": true,
+          "text": "30m",
+          "value": "30m"
         },
         "description": null,
         "error": null,
@@ -2132,7 +2098,7 @@
         "name": "interval",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "auto",
             "value": "$__auto_interval_interval"
           },
@@ -2147,7 +2113,7 @@
             "value": "10m"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "30m",
             "value": "30m"
           },
