@@ -7,7 +7,11 @@ grafana.db
 *.log
 *.pyc
 
-certbot/
+volumes/etc/letsencrypt
+volumes/var/www/certbot
+volumes/etc/wireguard
+volumes/var/lib/wireguard
+volumes/var/lib/influxdb
 octopus/
 venv/
 csv/
